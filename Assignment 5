@@ -1,0 +1,23 @@
+def validate_pan(pan_str):
+    if len(pan_str) != 10:
+        return False
+        
+    first_part = pan_str[0:5]
+    if not (first_part.isalpha() and first_part.isupper()):
+        return False
+        
+    second_part = pan_str[5:9]
+    if not second_part.isdigit():
+        return False
+        
+    last_part = pan_str[9]
+    if not (last_part.isalpha() and last_part.isupper()):
+        return False
+     return True
+
+user_input = input("Enter the PAN number: ")
+
+if validate_pan(user_input):
+    print("Valid PAN Number")
+else:
+    print("Invalid PAN Number")
