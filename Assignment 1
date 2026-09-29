@@ -1,0 +1,83 @@
+initial_data = [
+    (1, "Amit", "Computer", 85),
+    (2, "Sneha", "IT", 90),
+    (3, "Rahul", "Mechanical", 78),
+]
+students = {}
+for record in initial_data:
+    roll, name, branch, marks = record
+    students[roll] = (name, branch, marks)
+
+
+def display_students():
+    print("\n--- Student Records ---")
+    if len(students) == 0:
+        print("No records found.")
+    else:
+        print("Roll No | Name | Branch | Marks")
+        for roll in students:
+            name, branch, marks = students[roll]
+            print(roll, "|", name, "|", branch, "|", marks)
+
+
+# 1. Add a new student record
+def add_student():
+    roll = int(input("Enter Roll Number: "))
+    if roll in students:
+        print("Roll number already exists!")
+    else:
+        name = input("Enter Name: ")
+        branch = input("Enter Branch: ")
+        marks = int(input("Enter Marks: "))
+        students[roll] = (name, branch, marks)
+        print("Student added successfully.")
+
+
+# 2. Delete an existing student record
+def delete_student():
+    roll = int(input("Enter Roll Number to delete: "))
+    if roll in students:
+        del students[roll]
+        print("Student deleted successfully.")
+    else:
+        print("Roll number not found!")
+
+
+# 3. Update the details of a student
+def update_student():
+    roll = int(input("Enter Roll Number to update: "))
+    if roll in students:
+        name = input("Enter new Name: ")
+        branch = input("Enter new Branch: ")
+        marks = int(input("Enter new Marks: "))
+        # Tuples cannot be changed, so we replace the whole tuple
+        students[roll] = (name, branch, marks)
+        print("Student updated successfully.")
+    else:
+        print("Roll number not found!")
+
+
+# Menu
+while True:
+    print("\n===== MENU =====")
+    print("1. Add Student")
+    print("2. Delete Student")
+    print("3. Update Student")
+    print("4. Display Final Records")
+    print("5. Exit")
+    choice = input("Enter your choice (1-5): ")
+
+    if choice == "1":
+        add_student()
+    elif choice == "2":
+        delete_student()
+    elif choice == "3":
+        update_student()
+    elif choice == "4":
+        display_students()
+    elif choice == "5":
+        display_students()
+        print("Program ended.")
+        break
+    else:
+        print("Invalid choice. Try again.")
