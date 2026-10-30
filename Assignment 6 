@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+
+# 1. Create sample DataFrame (with missing values and a duplicate)
+data = {
+    "Name":  ["Amit", "Bhavna", "Chetan", "Diya", "Esha", "Amit", "Farhan"],
+    "Marks": [75, 82, np.nan, 90, 72, 75, 85],
+    "City":  ["Pune", "Mumbai", "Pune", None, "Mumbai", "Pune", "Nashik"]
+}
+df = pd.DataFrame(data)
+
+# Or load from a file instead:
+# df = pd.read_csv("data.csv")      # for .csv
+# df = pd.read_excel("data.xls")    # for .xls
+
+# 2. Explore the data
+print("First 5 rows:")
+print(df.head())
+print("\nInfo:")
+df.info()
+print("\nSummary statistics:")
+print(df.describe())
+
+# 3. Check missing values
+print("\nMissing values per column:")
+print(df.isnull().sum())
+
+# 4. Handle missing values
+df_dropped = df.dropna()    # removes rows with any missing value
+print("\nAfter dropna():")
+print(df_dropped)
+
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())    # numeric: mean
+df["City"] = df["City"].fillna(df["City"].mode()[0])    # text: mode
+print("\nAfter fillna():")
+print(df)
+
+# 5. Find and remove duplicates
+print("\nDuplicate rows (True = duplicate):")
+print(df.duplicated())
+
+df = df.drop_duplicates()
+print("\nAfter drop_duplicates():")
+print(df)
+
+# 6. Drop an irrelevant column
+df_no_city = df.drop("City", axis=1)
+print("\nAfter dropping City column:")
+print(df_no_city)
+
+# 7. Selection and filtering using loc[]
+print("\nStudents with Marks above 80:")
+print(df.loc[df["Marks"] > 80])
+
+print("\nName and Marks of students from Pune:")
+print(df.loc[df["City"] == "Pune", ["Name", "Marks"]])
